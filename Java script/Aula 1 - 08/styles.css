@@ -1,0 +1,24 @@
+body {
+  margin: 50px; /* Adiciona uma margem de 50 pixels ao redor do corpo da página */
+  background-color: #f2f2f2; /* Define a cor de fundo da página */
+  display: flex; /* Utiliza o Flexbox para centralizar o conteúdo */
+  justify-content: center; /* Centaliza horizontalmente */
+  
+}
+
+.container {
+  text-align: center; /* Centraliza o texto dentro do container */
+  background-color: white; /* Define a cor de fundo do container */
+  padding: 30px; /* Adiciona um preenchimento de 30 pixels ao redor do conteúdo do container */
+  border-radius: 10px; /* Arredonda os cantos do container */
+}
+
+button {
+  background-color: #008cff; /* Define a cor de fundo do botão */
+  color: white; /* Define a cor do texto do botão */
+  border: none; /* Remove a borda padrão do botão */
+  padding: 10px; /* Adiciona um preenchimento de 10 pixels ao redor do texto do botão */
+  border-radius: 5px; /* Arredonda os cantos do botão */
+  font-size: 16px; /* Define o tamanho da fonte do texto do botão */
+  cursor: pointer; /* Muda o cursor para uma mãozinha ao passar sobre o botão */
+}
