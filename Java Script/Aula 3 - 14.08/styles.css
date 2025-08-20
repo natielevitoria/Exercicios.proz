@@ -1,0 +1,30 @@
+body {
+    background: radial-gradient(circle, rgb(167, 167, 245), rgb(12, 177, 243));
+    padding: 30px;
+    display: flex;
+    justify-content: center;
+    
+}
+
+.container {
+    text-align: center;
+    padding: 50px;
+    background-color: rgba(235, 243, 248, 0.705);
+    border-radius: 10px;
+    
+}
+
+ h1 {
+    display: flex;
+    padding: 10px;
+    height: 50px;
+    align-items: flex-start;
+    font-style: italic;
+    font-size: 45px;
+
+}
+
+p {
+    font-style: italic;
+    font-size: 20px;
+}
