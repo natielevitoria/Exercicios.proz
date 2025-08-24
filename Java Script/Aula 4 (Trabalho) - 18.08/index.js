@@ -21,4 +21,30 @@ function verificardados() {
         mensagem.innerHTML = "❌ Nome ou senha incorretos!";
         mensagem.style.color = "red";
     }
+
+    document.getElementById("nome").value = "";
+    document.getElementById("senha").value = "";
 }
+
+function verificardados() {
+  const nome = document.getElementById("nome").value;
+  const senha = document.getElementById("senha").value;
+
+  if (!nome || !senha) {
+    alert("Por favor, preencha todos os campos!");
+    return;
+  }
+
+  alert("Login enviado!");
+}
+
+document.getElementById("toggleSenha").addEventListener("click", function () {
+  const senhaInput = document.getElementById("senha");
+  if (senhaInput.type === "password") {
+    senhaInput.type = "text";
+    this.classList.replace("fa-eye", "fa-eye-slash");
+  } else {
+    senhaInput.type = "password";
+    this.classList.replace("fa-eye-slash", "fa-eye");
+  }
+});
