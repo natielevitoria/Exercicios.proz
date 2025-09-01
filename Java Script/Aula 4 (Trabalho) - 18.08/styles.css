@@ -1,52 +1,107 @@
 body {
-    height: 100vh; 
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    background: linear-gradient(to bottom, rgb(85, 62, 74), rgba(136, 136, 120, 0.61));
-    font-family: Arial, Helvetica, sans-serif;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(
+    to bottom,
+    #ff0000,
+    #000000
+  );
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  color: #f0f0f0;
+  position: relative;
+  overflow: hidden;
+  padding: 20px; /* espaço nas laterais para telas pequenas */
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: url('img/corridas-de-automoveis-em-competicoes-esportivas.jpg') no-repeat center center;
+  background-size: cover;
+  opacity: 0.12; /* um pouco mais claro */
+  z-index: -1;
+  filter: brightness(0.6); /* escurece levemente a imagem para contraste */
 }
 
 h1 {
-    color: rgb(255, 238, 238);
-    margin-bottom: 10px;
+  margin-bottom: 15px;
+  font-size: 3rem;
+  text-align: center;
+  font-family: "Orbitron", sans-serif;
+  animation: coresPiscando 1.5s infinite alternate;
+  text-shadow: 0 0 10px #000;
 }
 
-h3 {
-    margin-bottom: 20px;
-    color: aliceblue;
+h3, p {
+  text-align: center;
+  margin-bottom: 12px;
+  font-family: "Nunito", sans-serif;
+  font-weight: 600;
+  color: #ddd;
 }
 
-p {
-    color: aliceblue;
-    margin-bottom: 15px;
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: rgba(0,0,0,0.35); /* fundo semitransparente para inputs */
+  padding: 5px 3px;
+  border-radius: 15px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.6);
+  width: 320px;
+  max-width: 90vw;
 }
 
 input {
-    width: 220px;
-    height: 35px;
-    margin: 8px 0;
-    padding: 5px 10px;
-    border: none;
-    border-radius: 8px;
-    outline: none;
-    box-shadow: 0px 2px 5px rgba(0,0,0,0.2);
+  width: 70%;
+  height: 20px;
+  margin: 12px 0;
+  padding: 12px 15px;
+  border: none;
+  border-radius: 12px;
+  background-color: rgba(255, 255, 255, 0.12);
+  color: #eee;
+  font-size: 1.1rem;
+  transition: background-color 0.3s, box-shadow 0.3s;
+  box-shadow: inset 1px 1px 5px rgba(255, 255, 255, 0.15);
+}
+
+input::placeholder {
+  color: #bbb;
+  font-style: italic;
+}
+
+input:focus {
+  background-color: rgba(255, 255, 255, 0.25);
+  outline: none;
+  box-shadow: 0 0 8px 2px #c471ed;
+  color: #fff;
 }
 
 button {
-    background: linear-gradient(to bottom, rgb(89, 215, 219), rgba(134, 164, 230, 0.61));
-    height: 35px;
-    width: 120px;
-    border: none;
-    border-radius: 8px;
-    color: white;
-    font-weight: bold;
-    cursor: pointer;
-    transition: transform 0.2s, opacity 0.2s;
+  margin-top: 15px;
+  background: linear-gradient(to right, #ff0000, #b30000);
+  height: 50px;
+  width: 150px;
+  border: none;
+  border-radius: 25px;
+  color: #fff;
+  font-weight: 700;
+  font-size: 1.2rem;
+  cursor: pointer;
+  box-shadow: 0 5px 15px rgba(255, 0, 0, 0.7);
+  transition: background 0.3s, box-shadow 0.3s, transform 0.2s;
 }
 
 button:hover {
-    transform: scale(1.05);
-    opacity: 0.9;
+  background: linear-gradient(to right, #ff3333, #e60000);
+  box-shadow: 0 7px 20px rgba(255, 51, 51, 0.9);
+  transform: translateY(-3px);
 }

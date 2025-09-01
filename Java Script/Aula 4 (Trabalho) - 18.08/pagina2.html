@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="pagina2.css">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <title>Página 2</title>
+</head>
+
+<body>
+    <header>Pilotos F1</header>
+    <h2>Escolha um Piloto para saber mais:</h2>
+    <ul>
+        <li onclick="carregarPiloto('Ollie')">Ollie Bearman</li>
+        <li onclick="carregarPiloto('Gabi')">Gabriel Bortoleto</li>
+        <li onclick="carregarPiloto('Charles')">Charles Leclerc</li>
+        <li onclick="carregarPiloto('Max')">Max Verstappen</li>
+        <li onclick="carregarPiloto('Lewis')">Lewis Hamilton</li>
+    </ul>
+
+    <div id="detalhes"></div>
+
+    
+    <button onclick="window.location.href='index.html'">Voltar à página inicial</button>
+</body>
+
+<footer class="rodape-f1">
+    <div class="container-rodape">
+        <p>&copy; 2025 Pilotos F1 — Todos os direitos reservados.</p>
+        <p>Contato: (31) 7070-7070</p>
+        <div class="links-sociais">
+            <a href="https://www.instagram.com/" target="_blank"><i class="fab fa-instagram"></i></a>
+            <a href="https://www.youtube.com/F1" target="_blank"><i class="fab fa-youtube"></i></a>
+            <a href="https://f1tv.formula1.com/" target="_blank"><i class="fas fa-tv"></i> F1 TV</a>
+        </div>
+    </div>
+</footer>
+
+<script src="pagina2.js"></script>
+</html>
