@@ -6,17 +6,12 @@
   <title>Saudação</title>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
 
-    <!-- Manifest do PWA -->
+  <!-- Manifest do PWA -->
   <link rel="manifest" href="manifest.json">
   <meta name="theme-color" content="#000000">
 
   <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
+    * { margin: 0; padding: 0; box-sizing: border-box; }
     body {
       height: 100vh;
       display: flex;
@@ -29,43 +24,20 @@
       transition: background-image 1s ease-in-out; 
       color: #333;
     }
-
     #container {
-      background: linear-gradient(
-        to bottom,
-        rgba(255, 255, 255, 0.95),
-        rgba(240, 240, 240, 0.85)
-      );
+      background: linear-gradient(to bottom, rgba(255,255,255,0.95), rgba(240,240,240,0.85));
       padding: 25px;
       max-width: 400px;
       width: 90%;
       border-radius: 15px;
       text-align: center;
-      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
+      box-shadow: 0 8px 30px rgba(0,0,0,0.2);
       backdrop-filter: blur(5px);
     }
-
-    h1 {
-      font-size: 28px;
-      font-weight: 600;
-      margin-bottom: 10px;
-    }
-
-    p {
-      font-size: 16px;
-      margin: 5px 0;
-    }
-
-    hr {
-      margin: 15px 0;
-      border: none;
-      border-top: 1px solid rgba(0,0,0,0.1);
-    }
-
-    @media (max-width: 480px) {
-      h1 { font-size: 22px; }
-      p { font-size: 14px; }
-    }
+    h1 { font-size: 28px; font-weight: 600; margin-bottom: 10px; }
+    p { font-size: 16px; margin: 5px 0; }
+    hr { margin: 15px 0; border: none; border-top: 1px solid rgba(0,0,0,0.1); }
+    @media (max-width: 480px) { h1 { font-size: 22px; } p { font-size: 14px; } }
   </style>
 </head>
 <body>
@@ -79,7 +51,7 @@
   </div>
 
   <script>
-    let frases = []; 
+    let frases = [];
 
     function trocar() {
       const agora = new Date();
@@ -90,9 +62,7 @@
       const dataFormatada = agora.toLocaleDateString("pt-BR", opcoes);
       const diaSemana = agora.getDay();
 
-      let mensagem;
-      let tipoDia;
-      let imagem;
+      let mensagem, tipoDia, imagem;
 
       if (hora >= 6 && hora < 12) {
         imagem = "url('img/manha.jpg')";
@@ -112,7 +82,7 @@
         ];
       } else if (hora >= 18 && hora < 23) {
         imagem = "url('img/noite.jpg')";
-        mensagem = "Boa noite! 🌙"; 
+        mensagem = "Boa noite! 🌙";
         frases = [
           "A noite é para sonhar e planejar.",
           "Descanse, amanhã é um novo dia.",
@@ -134,11 +104,11 @@
 
       document.body.style.backgroundImage = imagem;
       document.getElementById("titulo").innerHTML = mensagem;
-      document.getElementById("hora").innerHTML = `Agora são ${hora.toString().padStart(2, "0")}:${minutos}:${segundos}`;
+      document.getElementById("hora").innerHTML = `Agora são ${hora.toString().padStart(2,"0")}:${minutos}:${segundos}`;
       document.getElementById("data").innerHTML = "📅 " + dataFormatada;
       document.getElementById("diaTipo").innerHTML = tipoDia;
 
-      trocarFrase(); 
+      trocarFrase();
     }
 
     function trocarFrase() {
@@ -149,15 +119,15 @@
     }
 
     trocar();
-    setInterval(trocar, 1000); 
-    setInterval(trocarFrase, 5000); 
+    setInterval(trocar, 1000);
+    setInterval(trocarFrase, 5000);
   </script>
 
-   <script>
+  <script>
     if ("serviceWorker" in navigator) {
       navigator.serviceWorker.register("service-worker.js")
         .then(() => console.log("Service Worker registrado"))
-        .catch(err => console.log(" Erro no SW:", err));
+        .catch(err => console.log("Erro no SW:", err));
     }
   </script>
 </body>

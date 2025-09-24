@@ -6,10 +6,10 @@ self.addEventListener("install", event => {
         "manifest.json",
         "icone-192.png",
         "icon-512.png",
-        "manhã1.jpg",
-        "tarde.jpg",
-        "noite.jpg",
-        "madrugada.jpg"
+        "img/manha.jpg",
+        "img/tarde.png",
+        "img/noite.jpg",
+        "img/madrugada.jpg"
       ]);
     })
   );
@@ -20,4 +20,3 @@ self.addEventListener("fetch", event => {
     caches.match(event.request).then(response => response || fetch(event.request))
   );
 });
-

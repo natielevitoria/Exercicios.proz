@@ -1,7 +1,7 @@
 {
   "name": "App Saudação",
   "short_name": "Saudação",
-  "start_url": "index.html",
+  "start_url": "./index.html",
   "display": "standalone",
   "background_color": "#ffffff",
   "theme_color": "#000000",
