@@ -16,8 +16,12 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh;
+            min-height: 100vh;
+            padding: 20px;
+            /* evita que grude nas bordas em telas menores */
+            box-sizing: border-box;
         }
+
 
         .screen {
             display: none;
@@ -31,8 +35,10 @@
             box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
             max-width: 600px;
             width: 100%;
+            box-sizing: border-box;
             animation: fadeIn 0.8s ease-in-out;
         }
+
 
         .screen.active {
             display: flex;
@@ -68,6 +74,8 @@
             border-radius: 12px;
             cursor: pointer;
             transition: background-color 0.3s;
+            margin-top: 30px;
+            
         }
 
         .start-btn:hover,
@@ -87,21 +95,26 @@
 
         .card-board {
             display: grid;
-            grid-template-columns: repeat(5, 100px);
+            grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
             gap: 15px;
             justify-content: center;
-            margin-bottom: 20px;
+            width: 100%;
         }
 
+
+
+
         .card {
-            width: 100px;
-            height: 100px;
+            aspect-ratio: 1 / 1;
+            /* Mantém proporção 1:1 */
+            width: 100%;
+            /* Ocupará a célula da grid */
             perspective: 1000px;
             cursor: pointer;
         }
 
+
         .card-inner {
-            position: relative;
             width: 100%;
             height: 100%;
             transition: transform 0.6s;
@@ -185,10 +198,11 @@
 
     <script>
         const themes = {
-            frutas: ['🍎', '🍌', '🍒', '🍍', '🍉'],
-            animais: ['🐶', '🐱', '🐭', '🐰', '🦊'],
-            emojis: ['😀', '😎', '🥳', '😡', '😭']
+            frutas: ['🍎', '🍌', '🍒', '🍍', '🍉', '🍇'],     // 6 frutas
+            animais: ['🐶', '🐱', '🐭', '🐰', '🦊', '🐻'],   // 6 animais
+            emojis: ['😀', '😎', '🥳', '😡', '😭', '😍']   // 6 emojis
         };
+
 
         let selectedTheme = 'frutas';
         let cardsArray = [...themes[selectedTheme], ...themes[selectedTheme]];
