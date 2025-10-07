@@ -1,6 +1,6 @@
 {
-    "name": "App Saudação",
-    "short_name": "Saudação",
+    "name": "App Jogo da memória",
+    "short_name": "Jogo Memória",
     "start_url": "./index.html",
     "display": "standalone",
     "background_color": "#ffffff",
@@ -18,4 +18,5 @@
             "type": "image/png"
         }
     ]
+
 }
