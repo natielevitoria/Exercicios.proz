@@ -1,337 +1,227 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Jogo da Memória</title>
-    <!-- Manifest do PWA -->
-    <link rel="manifest" href="manifest.json">
-    <meta name="theme-color" content="#000000">
-    <style>
-        body {
-            margin: 0;
-            font-family: 'Segoe UI', sans-serif;
-            background: linear-gradient(135deg, #e0f7fa, #fce4ec);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            padding: 20px;
-            /* evita que grude nas bordas em telas menores */
-            box-sizing: border-box;
-        }
-
-
-        .screen {
-            display: none;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            padding: 30px;
-            border-radius: 20px;
-            background: white;
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
-            max-width: 600px;
-            width: 100%;
-            box-sizing: border-box;
-            animation: fadeIn 0.8s ease-in-out;
-        }
-
-
-        .screen.active {
-            display: flex;
-        }
-
-        h1 {
-            font-size: 2.5em;
-            margin-bottom: 20px;
-            color: #4a148c;
-        }
-
-        p {
-            font-size: 1.1em;
-            color: #555;
-            margin-bottom: 25px;
-        }
-
-        select {
-            padding: 10px;
-            font-size: 1em;
-            margin-bottom: 20px;
-            border-radius: 10px;
-            border: 1px solid #ccc;
-        }
-
-        .start-btn,
-        .restart-btn {
-            padding: 12px 25px;
-            font-size: 1em;
-            background-color: #7b1fa2;
-            color: white;
-            border: none;
-            border-radius: 12px;
-            cursor: pointer;
-            transition: background-color 0.3s;
-            margin-top: 30px;
-            
-        }
-
-        .start-btn:hover,
-        .restart-btn:hover {
-            background-color: #6a1b9a;
-        }
-
-        .stats {
-            font-size: 1.1em;
-            margin-bottom: 20px;
-            color: #555;
-        }
-
-        .stats span {
-            margin: 0 10px;
-        }
-
-        .card-board {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
-            gap: 15px;
-            justify-content: center;
-            width: 100%;
-        }
-
-
-
-
-        .card {
-            aspect-ratio: 1 / 1;
-            /* Mantém proporção 1:1 */
-            width: 100%;
-            /* Ocupará a célula da grid */
-            perspective: 1000px;
-            cursor: pointer;
-        }
-
-
-        .card-inner {
-            width: 100%;
-            height: 100%;
-            transition: transform 0.6s;
-            transform-style: preserve-3d;
-        }
-
-        .card.flipped .card-inner {
-            transform: rotateY(180deg);
-        }
-
-        .card-front,
-        .card-back {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            backface-visibility: hidden;
-            border-radius: 12px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-size: 2em;
-        }
-
-        .card-front {
-            background-color: #ce93d8;
-            color: white;
-        }
-
-        .card-back {
-            background-color: #4a148c;
-            color: white;
-            transform: rotateY(180deg);
-        }
-
-        .win-message {
-            font-size: 1.2em;
-            color: #2e7d32;
-            margin-top: 15px;
-            animation: fadeIn 1s ease-in-out;
-        }
-
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-                transform: scale(0.9);
-            }
-
-            to {
-                opacity: 1;
-                transform: scale(1);
-            }
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Jogo da Memória</title>
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#000">
+  <link rel="icon" href="favicon.png" type="image/png">
+  <style>
+    body {
+      margin: 0; font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(135deg,#e0f7fa,#fce4ec);
+      display: flex; justify-content: center; align-items: center;
+      min-height: 100vh; padding: 20px; box-sizing: border-box;
+    }
+    .screen {
+      display: none; flex-direction: column; align-items: center; justify-content: center;
+      text-align: center; padding: 30px; border-radius: 20px; background: #fff;
+      box-shadow: 0 10px 25px rgba(0,0,0,.2); max-width: 600px; width: 100%;
+      animation: fadeIn .8s ease-in-out;
+    }
+    .screen.active {display: flex;}
+    h1 {font-size: 2.5em; margin-bottom: 20px; color: #4a148c;}
+    p {font-size: 1.1em; color: #555; margin-bottom: 25px;}
+    select {
+      padding: 10px; font-size: 1em; margin-bottom: 20px;
+      border-radius: 10px; border: 1px solid #ccc;
+    }
+    .start-btn,.restart-btn {
+      padding: 12px 25px; font-size: 1em; background: #7b1fa2;
+      color: #fff; border: none; border-radius: 12px; cursor: pointer;
+      transition: background .3s; margin-top: 20px;
+    }
+    .start-btn:hover,.restart-btn:hover {background: #6a1b9a;}
+    .stats {font-size: 1.1em; margin-bottom: 20px; color: #555;}
+    .stats span {margin: 0 10px;}
+    .card-board {
+      display: grid; grid-template-columns: repeat(auto-fit,minmax(80px,1fr));
+      gap: 15px; width: 100%;
+    }
+    .card {aspect-ratio: 1/1; width: 100%; perspective: 1000px; cursor: pointer;}
+    .card-inner {width: 100%; height: 100%; transition: transform .6s; transform-style: preserve-3d;}
+    .card.flipped .card-inner {transform: rotateY(180deg);}
+    .card-front,.card-back {
+      position: absolute; width: 100%; height: 100%; backface-visibility: hidden;
+      border-radius: 12px; display: flex; justify-content: center; align-items: center; font-size: 2em;
+    }
+    .card-front {background: #ce93d8; color: #fff;}
+    .card-back {background: #4a148c; color: #fff; transform: rotateY(180deg);}
+    .card.matched {animation: pulse 0.4s ease-in-out;}
+    @keyframes pulse {
+      0% {transform: scale(1);}
+      50% {transform: scale(1.1);}
+      100% {transform: scale(1);}
+    }
+    .win-message {font-size: 1.2em; color: #2e7d32; margin-top: 15px; animation: fadeIn 1s ease-in-out;}
+    @keyframes fadeIn {from{opacity:0;transform:scale(.9);} to{opacity:1;transform:scale(1);}}
+  </style>
 </head>
-
 <body>
+  <div class="screen active" id="start-screen">
+    <h1>🎮 Bem-vindo ao Jogo da Memória!</h1>
+    <p>Escolha um tema, dificuldade e tempo:</p>
+    <select id="theme-select">
+      <option value="frutas">🍎 Frutas</option>
+      <option value="animais">🐶 Animais</option>
+      <option value="emojis">😄 Emojis</option>
+    </select>
+    <select id="difficulty-select">
+      <option value="facil">Fácil</option>
+      <option value="medio">Médio</option>
+      <option value="dificil">Difícil</option>
+    </select>
+    <select id="time-select">
+      <option value="30">30 segundos</option>
+      <option value="60" selected>60 segundos</option>
+      <option value="90">90 segundos</option>
+    </select>
+    <button class="start-btn" id="start-btn">Iniciar Jogo</button>
+  </div>
 
-    <!-- Tela de início -->
-    <div class="screen active" id="start-screen">
-        <h1>🎮 Bem-vindo ao Jogo da Memória!</h1>
-        <p>Escolha um tema para começar:</p>
-        <select id="theme-select">
-            <option value="frutas">🍎 Frutas</option>
-            <option value="animais">🐶 Animais</option>
-            <option value="emojis">😄 Emojis</option>
-        </select>
-        <button class="start-btn" id="start-btn">Iniciar Jogo</button>
+  <div class="screen" id="game-screen">
+    <h1>Jogo da Memória</h1>
+    <div class="stats">
+      <span>🕹️ Movimentos: <strong id="moves">0</strong></span>
+      <span>⏱️ Tempo restante: <strong id="timer">60s</strong></span>
     </div>
+    <div class="card-board" id="card-board"></div>
+    <button class="restart-btn" id="restart-btn">🔄 Reiniciar Jogo</button>
+    <button class="restart-btn" id="back-btn">⬅️ Voltar</button>
+    <div id="win-message" class="win-message"></div>
+  </div>
 
-    <!-- Tela do jogo -->
-    <div class="screen" id="game-screen">
-        <h1>Jogo da Memória</h1>
-        <div class="stats">
-            <span>🕹️ Movimentos: <strong id="moves">0</strong></span>
-            <span>⏱️ Tempo: <strong id="timer">0s</strong></span>
-        </div>
-        <div class="card-board" id="card-board"></div>
-        <button class="restart-btn" id="restart-btn">🔄 Reiniciar Jogo</button>
-        <div id="win-message" class="win-message"></div>
-    </div>
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+  <script>
+    const themes = {
+      frutas: ['🍎','🍌','🍒','🍍','🍉','🍇','🥭','🍑','🍐','🍊'],
+      animais: ['🐶','🐱','🐭','🐰','🦊','🐻','🐼','🐷','🐸','🐨'],
+      emojis: ['😀','😎','🥳','😡','😭','😍','🤖','👽','😴','😱']
+    };
+    const difficulties = {facil:6, medio:8, dificil:10};
 
-    <script>
-        const themes = {
-            frutas: ['🍎', '🍌', '🍒', '🍍', '🍉', '🍇'],     // 6 frutas
-            animais: ['🐶', '🐱', '🐭', '🐰', '🦊', '🐻'],   // 6 animais
-            emojis: ['😀', '😎', '🥳', '😡', '😭', '😍']   // 6 emojis
-        };
+    let selectedTheme='frutas',cardsArray=[],flippedCards=[],matchedCards=[],moves=0,timer=60,interval,lockBoard=false;
+    const startScreen=document.getElementById('start-screen'),
+          gameScreen=document.getElementById('game-screen'),
+          startBtn=document.getElementById('start-btn'),
+          cardBoard=document.getElementById('card-board'),
+          restartBtn=document.getElementById('restart-btn'),
+          backBtn=document.getElementById('back-btn'),
+          movesDisplay=document.getElementById('moves'),
+          timerDisplay=document.getElementById('timer'),
+          winMessage=document.getElementById('win-message');
 
+    startBtn.onclick=()=>{
+      selectedTheme=document.getElementById('theme-select').value;
+      const difficulty=document.getElementById('difficulty-select').value;
+      const timeLimit=parseInt(document.getElementById('time-select').value);
+      const count=difficulties[difficulty];
+      cardsArray=[...themes[selectedTheme]].slice(0,count);
+      cardsArray=[...cardsArray,...cardsArray];
+      timer=timeLimit;
+      startScreen.classList.remove('active');
+      gameScreen.classList.add('active');
+      restartGame();
+    };
 
-        let selectedTheme = 'frutas';
-        let cardsArray = [...themes[selectedTheme], ...themes[selectedTheme]];
+    const shuffleArray=a=>{
+      for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}
+      return a;
+    };
 
-        let flippedCards = [];
-        let matchedCards = [];
-        let moves = 0;
-        let timer = 0;
-        let interval;
-        let lockBoard = false;
+    function createBoard(){
+      const shuffled=shuffleArray([...cardsArray]);
+      cardBoard.innerHTML='';
+      shuffled.forEach(c=>{
+        const el=document.createElement('div');
+        el.classList.add('card');
+        el.dataset.value=c;
+        el.innerHTML=`<div class="card-inner"><div class="card-front">❓</div><div class="card-back">${c}</div></div>`;
+        el.addEventListener('click',flipCard);
+        cardBoard.appendChild(el);
+      });
+    }
 
-        const startScreen = document.getElementById('start-screen');
-        const gameScreen = document.getElementById('game-screen');
-        const startBtn = document.getElementById('start-btn');
-        const cardBoard = document.getElementById('card-board');
-        const restartBtn = document.getElementById('restart-btn');
-        const movesDisplay = document.getElementById('moves');
-        const timerDisplay = document.getElementById('timer');
-        const winMessage = document.getElementById('win-message');
+    function flipCard(e){
+      if(lockBoard)return;
+      const card=e.currentTarget;
+      if(card.classList.contains('flipped')||card.classList.contains('matched'))return;
+      card.classList.add('flipped');
+      flippedCards.push(card);
+      if(flippedCards.length===2){
+                lockBoard=true;
+        moves++;
+        movesDisplay.textContent=moves;
+        setTimeout(checkMatch,700);
+      }
+    }
 
-        startBtn.addEventListener('click', () => {
-            const themeSelect = document.getElementById('theme-select');
-            selectedTheme = themeSelect.value;
-            cardsArray = [...themes[selectedTheme], ...themes[selectedTheme]];
-            startScreen.classList.remove('active');
-            gameScreen.classList.add('active');
-            restartGame();
-        });
+    function checkMatch(){
+      const [c1,c2]=flippedCards;
+      if(c1.dataset.value===c2.dataset.value){
+        c1.classList.add('matched');
+        c2.classList.add('matched');
+        matchedCards.push(c1,c2);
+      } else {
+        c1.classList.remove('flipped');
+        c2.classList.remove('flipped');
+      }
+      flippedCards=[];
+      lockBoard=false;
 
-        function shuffleArray(array) {
-            for (let i = array.length - 1; i > 0; i--) {
-                const j = Math.floor(Math.random() * (i + 1));
-                [array[i], array[j]] = [array[j], array[i]];
-            }
-            return array;
+      if(matchedCards.length===cardsArray.length){
+        clearInterval(interval);
+        winMessage.innerHTML=`🎉 Você venceu em ${moves} movimentos e ${timer} segundos!<br>`;
+        
+        // Recorde de movimentos
+        const bestMoves = localStorage.getItem('bestMoves');
+        if (!bestMoves || moves < bestMoves) {
+          localStorage.setItem('bestMoves', moves);
+          winMessage.innerHTML += `🏆 Novo recorde de movimentos!`;
+        } else {
+          winMessage.innerHTML += `🏆 Recorde atual: ${bestMoves} movimentos`;
         }
 
-        function createBoard() {
-            const shuffledCards = shuffleArray([...cardsArray]);
-            cardBoard.innerHTML = '';
-            shuffledCards.forEach((card) => {
-                const cardElement = document.createElement('div');
-                cardElement.classList.add('card');
-                cardElement.dataset.value = card;
+        confetti({particleCount:150,spread:70,origin:{y:0.6}});
+      }
+    }
 
-                cardElement.innerHTML = `
-          <div class="card-inner">
-            <div class="card-front">❓</div>
-            <div class="card-back">${card}</div>
-          </div>
-        `;
+    function restartGame(){
+      matchedCards=[];
+      flippedCards=[];
+      moves=0;
+      lockBoard=false;
+      movesDisplay.textContent='0';
+      winMessage.textContent='';
+      createBoard();
 
-                cardElement.addEventListener('click', flipCard);
-                cardBoard.appendChild(cardElement);
-            });
+      // Inicia contador regressivo
+      timerDisplay.textContent=`${timer}s`;
+      clearInterval(interval);
+      interval=setInterval(()=>{
+        timer--;
+        timerDisplay.textContent=`${timer}s`;
+        if(timer<=0){
+          clearInterval(interval);
+          lockBoard=true;
+          winMessage.textContent='⏰ Tempo esgotado! Tente novamente.';
         }
+      },1000);
+    }
 
-        function flipCard(event) {
-            if (lockBoard) return;
+    backBtn.onclick=()=>{
+      clearInterval(interval);
+      gameScreen.classList.remove('active');
+      startScreen.classList.add('active');
+    };
 
-            const clickedCard = event.currentTarget;
-            if (clickedCard.classList.contains('flipped') || clickedCard.classList.contains('matched')) return;
+    restartBtn.onclick=restartGame;
 
-            clickedCard.classList.add('flipped');
-            flippedCards.push(clickedCard);
-
-            if (flippedCards.length === 2) {
-                lockBoard = true;
-                moves++;
-                movesDisplay.textContent = moves;
-                setTimeout(checkMatch, 700);
-            }
-        }
-
-        function checkMatch() {
-            const [firstCard, secondCard] = flippedCards;
-            const firstValue = firstCard.dataset.value;
-            const secondValue = secondCard.dataset.value;
-
-            if (firstValue === secondValue) {
-                firstCard.classList.add('matched');
-                secondCard.classList.add('matched');
-                matchedCards.push(firstCard, secondCard);
-            } else {
-                firstCard.classList.remove('flipped');
-                secondCard.classList.remove('flipped');
-            }
-
-            flippedCards = [];
-            lockBoard = false;
-
-            if (matchedCards.length === cardsArray.length) {
-                clearInterval(interval);
-                winMessage.textContent = `🎉 Você venceu em ${moves} movimentos e ${timer} segundos!`;
-            }
-        }
-
-        function restartGame() {
-            matchedCards = [];
-            flippedCards = [];
-            moves = 0;
-            timer = 0;
-            lockBoard = false;
-            movesDisplay.textContent = '0';
-            timerDisplay.textContent = '0s';
-            winMessage.textContent = '';
-            clearInterval(interval);
-            createBoard();
-            interval = setInterval
-            timerDisplay.textContent = '0s';
-            winMessage.textContent = '';
-            clearInterval(interval);
-            createBoard();
-            interval = setInterval(() => {
-                timer++;
-                timerDisplay.textContent = `${timer}s`;
-            }, 1000);
-        }
-
-        restartBtn.addEventListener('click', restartGame);
-    </script>
-
-    <script>
-        if ("serviceWorker" in navigator) {
-            navigator.serviceWorker.register("service-worker.js")
-                .then(() => console.log("Service Worker registrado"))
-                .catch(err => console.log("Erro no SW:", err));
-        }
-    </script>
+    if('serviceWorker' in navigator)
+      navigator.serviceWorker.register('service-worker.js')
+        .then(()=>console.log('Service Worker registrado'))
+        .catch(err=>console.log('Erro no SW:',err));
+  </script>
 </body>
-
 </html>
